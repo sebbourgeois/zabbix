@@ -2,7 +2,7 @@ ZBX-ASTERISK-PJSIP
 ==================
 
 A simple Asterisk template to monitor Asterisk servers using PJSIP.
-Based on the original work of [Hieronymousch](https://github.com/hieronymousch/zabbix-asterisk-pjsip)
+Based on the original work of [Hieronymousch](https://github.com/hieronymousch/zabbix-asterisk-pjsip).
 
 Requirements
 ------------
