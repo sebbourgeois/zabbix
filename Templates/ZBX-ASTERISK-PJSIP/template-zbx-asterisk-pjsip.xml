@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zabbix_export>
+    <version>4.4</version>
+    <date>2020-02-04T08:31:45Z</date>
+    <groups>
+        <group>
+            <name>Templates</name>
+        </group>
+    </groups>
+    <templates>
+        <template>
+            <template>Template App Asterisk PJSIP</template>
+            <name>Template App Asterisk PJSIP</name>
+            <groups>
+                <group>
+                    <name>Templates</name>
+                </group>
+            </groups>
+            <applications>
+                <application>
+                    <name>Asterisk</name>
+                </application>
+            </applications>
+            <items>
+                <item>
+                    <name>Number of active calls</name>
+                    <key>asterisk[calls.active]</key>
+                    <delay>30s</delay>
+                    <applications>
+                        <application>
+                            <name>Asterisk</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>Number of incoming calls</name>
+                    <key>asterisk[calls.incoming]</key>
+                    <delay>30</delay>
+                    <applications>
+                        <application>
+                            <name>Asterisk</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>Number of outgoing calls</name>
+                    <key>asterisk[calls.outgoing]</key>
+                    <delay>30</delay>
+                    <applications>
+                        <application>
+                            <name>Asterisk</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>Number of processed calls in Asterisk</name>
+                    <key>asterisk[calls.processed]</key>
+                    <delay>5m</delay>
+                    <history>30d</history>
+                    <applications>
+                        <application>
+                            <name>Asterisk</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>Number of active channels</name>
+                    <key>asterisk[channels.active]</key>
+                    <delay>30s</delay>
+                    <applications>
+                        <application>
+                            <name>Asterisk</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>Total number of SIP peers in Asterisk</name>
+                    <key>asterisk[sip.peers]</key>
+                    <delay>30</delay>
+                    <history>7d</history>
+                    <applications>
+                        <application>
+                            <name>Asterisk</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>Check trunk status</name>
+                    <key>asterisk[sip.trunk.down]</key>
+                    <delay>30s</delay>
+                    <applications>
+                        <application>
+                            <name>Asterisk</name>
+                        </application>
+                    </applications>
+                    <valuemap>
+                        <name>Service state</name>
+                    </valuemap>
+                </item>
+                <item>
+                    <name>Asterisk last reload</name>
+                    <key>asterisk[status.reload]</key>
+                    <delay>1h</delay>
+                    <history>30d</history>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <applications>
+                        <application>
+                            <name>Asterisk</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>Asterisk uptime</name>
+                    <key>asterisk[status.uptime]</key>
+                    <history>30d</history>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <applications>
+                        <application>
+                            <name>Asterisk</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>Asterisk version</name>
+                    <key>asterisk[status.version]</key>
+                    <delay>1d</delay>
+                    <history>30d</history>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <applications>
+                        <application>
+                            <name>Asterisk</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>UDP port $1 state</name>
+                    <key>net.udp.listen[5060]</key>
+                    <delay>60</delay>
+                    <history>7d</history>
+                    <applications>
+                        <application>
+                            <name>Asterisk</name>
+                        </application>
+                    </applications>
+                    <valuemap>
+                        <name>Service state</name>
+                    </valuemap>
+                    <triggers>
+                        <trigger>
+                            <expression>{last(0)}=0</expression>
+                            <name>SIP port not listening on {HOST.NAME}</name>
+                            <priority>DISASTER</priority>
+                            <dependencies>
+                                <dependency>
+                                    <name>No asterisk process running on {HOST.NAME}</name>
+                                    <expression>{Template App Asterisk PJSIP:proc.num[asterisk].last(0)}=0</expression>
+                                </dependency>
+                            </dependencies>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>Number of $1 processes</name>
+                    <key>proc.num[asterisk]</key>
+                    <history>7d</history>
+                    <applications>
+                        <application>
+                            <name>Asterisk</name>
+                        </application>
+                    </applications>
+                    <triggers>
+                        <trigger>
+                            <expression>{last(0)}=0</expression>
+                            <name>No asterisk process running on {HOST.NAME}</name>
+                            <priority>DISASTER</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>Checksum of $1</name>
+                    <key>vfs.file.cksum[/etc/asterisk/asterisk.conf]</key>
+                    <delay>15m</delay>
+                    <history>7d</history>
+                    <applications>
+                        <application>
+                            <name>Asterisk</name>
+                        </application>
+                    </applications>
+                    <triggers>
+                        <trigger>
+                            <expression>{diff(0)}&gt;0</expression>
+                            <name>/etc/asterisk/asterisk.conf has been changed on {HOST.NAME}</name>
+                            <priority>INFO</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>Checksum of $1</name>
+                    <key>vfs.file.cksum[/etc/asterisk/extensions.conf]</key>
+                    <delay>15m</delay>
+                    <history>7d</history>
+                    <applications>
+                        <application>
+                            <name>Asterisk</name>
+                        </application>
+                    </applications>
+                    <triggers>
+                        <trigger>
+                            <expression>{diff(0)}&gt;0</expression>
+                            <name>/etc/asterisk/extensions.conf has been changed on {HOST.NAME}</name>
+                            <status>DISABLED</status>
+                            <priority>INFO</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>Checksum of $1</name>
+                    <key>vfs.file.cksum[/etc/asterisk/pjsip.conf]</key>
+                    <delay>15m</delay>
+                    <history>7d</history>
+                    <applications>
+                        <application>
+                            <name>Asterisk</name>
+                        </application>
+                    </applications>
+                    <triggers>
+                        <trigger>
+                            <expression>{diff(0)}&gt;0</expression>
+                            <name>/etc/asterisk/sip.conf has been changed on {HOST.NAME}</name>
+                            <status>DISABLED</status>
+                            <priority>INFO</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+            </items>
+            <discovery_rules>
+                <discovery_rule>
+                    <name>SIP Trunks</name>
+                    <key>ast.pjsip.discover</key>
+                    <delay>1h</delay>
+                    <item_prototypes>
+                        <item_prototype>
+                            <name>Check latency of {#TRUNKNAME}</name>
+                            <key>ast.pjsip.latency[{#TRUNKNAME}]</key>
+                            <value_type>FLOAT</value_type>
+                            <units>ms</units>
+                            <applications>
+                                <application>
+                                    <name>Asterisk</name>
+                                </application>
+                            </applications>
+                        </item_prototype>
+                    </item_prototypes>
+                </discovery_rule>
+            </discovery_rules>
+        </template>
+    </templates>
+    <graphs>
+        <graph>
+            <name>Active calls</name>
+            <graph_items>
+                <graph_item>
+                    <color>1A7C11</color>
+                    <item>
+                        <host>Template App Asterisk PJSIP</host>
+                        <key>asterisk[calls.active]</key>
+                    </item>
+                </graph_item>
+            </graph_items>
+        </graph>
+        <graph>
+            <name>Active channels</name>
+            <graph_items>
+                <graph_item>
+                    <color>0080FF</color>
+                    <item>
+                        <host>Template App Asterisk PJSIP</host>
+                        <key>asterisk[channels.active]</key>
+                    </item>
+                </graph_item>
+            </graph_items>
+        </graph>
+        <graph>
+            <name>Incoming/Outgoing Calls</name>
+            <graph_items>
+                <graph_item>
+                    <color>BF00FF</color>
+                    <item>
+                        <host>Template App Asterisk PJSIP</host>
+                        <key>asterisk[calls.incoming]</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>1</sortorder>
+                    <color>FF8000</color>
+                    <item>
+                        <host>Template App Asterisk PJSIP</host>
+                        <key>asterisk[calls.outgoing]</key>
+                    </item>
+                </graph_item>
+            </graph_items>
+        </graph>
+        <graph>
+            <name>Number of processed calls</name>
+            <graph_items>
+                <graph_item>
+                    <color>26A69A</color>
+                    <item>
+                        <host>Template App Asterisk PJSIP</host>
+                        <key>asterisk[calls.processed]</key>
+                    </item>
+                </graph_item>
+            </graph_items>
+        </graph>
+    </graphs>
+    <value_maps>
+        <value_map>
+            <name>Service state</name>
+            <mappings>
+                <mapping>
+                    <value>0</value>
+                    <newvalue>Down</newvalue>
+                </mapping>
+                <mapping>
+                    <value>1</value>
+                    <newvalue>Up</newvalue>
+                </mapping>
+            </mappings>
+        </value_map>
+    </value_maps>
+</zabbix_export>
