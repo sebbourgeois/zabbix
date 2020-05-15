@@ -8,6 +8,7 @@ Requirements
 ------------
 
 This template was tested for Zabbix 4.4 and higher.
+Add zabbix user to group asterisk
 
 License
 -------
