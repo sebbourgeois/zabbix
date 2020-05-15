@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zabbix_export>
     <version>4.4</version>
-    <date>2020-02-04T08:31:45Z</date>
+    <date>2020-05-15T19:54:38Z</date>
     <groups>
         <group>
             <name>Templates</name>
@@ -242,6 +242,17 @@
                     <key>ast.pjsip.discover</key>
                     <delay>1h</delay>
                     <item_prototypes>
+                        <item_prototype>
+                            <name>active chanel of {#TRUNKNAME}</name>
+                            <key>ast.pjsip.chanel[{#TRUNKNAME}]</key>
+                            <delay>30s</delay>
+                            <history>30d</history>
+                            <applications>
+                                <application>
+                                    <name>Asterisk</name>
+                                </application>
+                            </applications>
+                        </item_prototype>
                         <item_prototype>
                             <name>Check latency of {#TRUNKNAME}</name>
                             <key>ast.pjsip.latency[{#TRUNKNAME}]</key>
